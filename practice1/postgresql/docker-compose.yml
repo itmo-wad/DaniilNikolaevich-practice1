@@ -1,0 +1,15 @@
+version: '3.3'
+
+services:
+  wad_db_practice_1:
+    image: postgres:14.1
+    container_name: wad_db_container
+    env_file:
+      - .env
+    restart: always
+    volumes:
+      - ./data:/var/lib/postgresql/data
+      - ./postgresql.conf:/etc/postgresql.conf
+    ports:
+      - "55437:5432"
+    command: postgres -c config_file=/etc/postgresql.conf

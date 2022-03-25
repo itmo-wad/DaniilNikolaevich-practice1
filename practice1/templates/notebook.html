@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notebook</title>
+</head>
+<body>
+
+<h1>Messages: </h1>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<h1>New Note</h1>
+<form id="note" method="POST" action="http://127.0.0.1:50000/notebook">
+    <p>
+        <input type="title" id="title" name="title" placeholder="Title" required>
+    </p>
+    <p>
+        <input type="text" id="text" name="text" placeholder="text" required>
+    </p>
+    <p>
+        <input type="submit" id="note" value="Post note">
+    </p>
+</form>
+<h1>Flush all notes</h1>
+<form id="note" method="POST" action="http://127.0.0.1:50000/notebook/flush">
+    <p>
+        <input type="submit" id="note" value="Clear">
+    </p>
+</form>
+<h1>Already Existed Notes</h1>
+
+<table border="1">
+    <tr>
+        <td>Title</td>
+        <td>Text</td>
+    </tr>
+    {% for title, text in existed_notes %}
+        <tr>
+            <td>{{ title }}</td>
+            <td>{{ text }}</td>
+        </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

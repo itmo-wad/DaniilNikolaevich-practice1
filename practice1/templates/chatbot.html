@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chatbot</title>
+</head>
+<body>
+<h1>Messages: </h1>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<h1>New message</h1>
+<form id="message" method="POST" action="http://127.0.0.1:50000/chatbot">
+    <p>
+        <input type="text" id="text" name="text" placeholder="Print message" required>
+    </p>
+    <p>
+        <input type="submit" id="message" value="Send message">
+    </p>
+</form>
+<h1>Flush all messages</h1>
+<form id="note" method="POST" action="http://127.0.0.1:50000/chatbot/flush">
+    <p>
+        <input type="submit" id="note" value="Clear">
+    </p>
+</form>
+<h1>Message History</h1>
+    {% for text, bot_answer in all_messages %}
+        <ul>Your message: {{ text }}</ul>
+        <ul>Bot answer% {{ bot_answer }}</ul>
+    {% endfor %}
+
+</body>
+</html>
